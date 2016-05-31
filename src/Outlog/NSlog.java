@@ -11,49 +11,36 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class log {
+public class NSlog {
 	
 	
-	public static void main(String []args) throws IOException, InterruptedException
-	{
-		
+	public static void main(String []args) throws IOException, InterruptedException{	
 	}
 
-
-
-	// 获取当前时间
 	public static String time() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");// 定义格式，不显示毫秒
 		String time = df.format(new Date());
 		return time;
-
 	}
-
-	// 获取当前时间
+	public static String times() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 定义格式，不显示毫秒
+		String time = df.format(new Date());
+		return time;
+	}
 	public static String timenow() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd_HH:mm:ss");// 定义格式，不显示毫秒
 		String time = df.format(new Date());
 		return time;
-
 	}
 
-	// 日志
-
-	public static void writelogs(String path,String time,String text) throws IOException {
-	
+	public static void writelogs(String path,String time,String text) throws IOException {	
     try{
-    	
-    	if(!(new File("D:/log/Monitor_log").isDirectory()))
-    	{
-    	new File("D:/log/Monitor_log").mkdir();
-    
+    	if(!(new File(path).isDirectory())){
+    	new File(path).mkdir();
     	}
 		File file = new File(path + File.separator + time + ".txt");          
-		
 		try {
-
-			Writer writer = new OutputStreamWriter(new FileOutputStream(file,
-					true), "UTF-8");
+			Writer writer = new OutputStreamWriter(new FileOutputStream(file,true), "UTF-8");
 			writer.write(text);
 			writer.write("\r\n");
 			writer.close();
@@ -65,10 +52,8 @@ public class log {
 			e.printStackTrace();
 		}
 	}
-    catch(Exception FileNotFoundException)
-    {
-    	
-    	  
+    catch(Exception FileNotFoundException) {
+	  
     }
 	}
 
