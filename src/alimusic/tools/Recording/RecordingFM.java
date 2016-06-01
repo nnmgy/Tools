@@ -1,5 +1,7 @@
 package alimusic.tools.Recording;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -31,13 +33,15 @@ public class RecordingFM extends JFrame
 		    JLabel lable0 = new JLabel("视频文件名:");
 		    frame1.add(lable0);
 		    lable0.setBounds(30, 30, 75, 25);
-		    final JTextField JText0 = new JTextField("Demo");
+		    final JTextField JText0 = new JTextField("Video");
 		    frame1.add(JText0);
 		    JText0.setBounds(100, 30, 180, 30);
 		    
-		    final JLabel lable19= new JLabel("");
+		    final JLabel lable19= new JLabel("录制过程中尽量不要断开连接线~");
+		    lable19.setFont(new Font("",1,20));//设置字体大小
+		    lable19.setForeground(Color.BLUE);//设置字体颜色
 		    frame1.add(lable19);
-		    lable19.setBounds(230, 200, 375, 125);
+		    lable19.setBounds(150, 80, 375, 195);
 		    
 			JLabel lable13 = new JLabel("比特率:");
 			frame1.add(lable13);
@@ -63,16 +67,27 @@ public class RecordingFM extends JFrame
 
 			 JLabel lable11 = new JLabel("视频存放路径：");
 			 frame1.add(lable11);
-			 lable11.setBounds(0, 300, 200, 35);   
-		     final JTextField JText11 = new JTextField("D:/");
+			 lable11.setBounds(30, 300, 200, 35);   
+		     final JTextField JText11 = new JTextField("D:/log/Video");
 			 frame1.add(JText11);
-			 JText11.setBounds(90, 300, 200, 35); 
+			 JText11.setBounds(130, 300, 200, 35); 
 			 
 			final JButton button1 = new JButton("开始录制");		
-			button1.setBounds(400, 300, 200, 35);  
+			button1.setBounds(400, 270, 200, 35);  
 		    frame1.add(button1);
 		    
+		    final JButton button2 = new JButton("播放");		
+			button2.setBounds(400, 320, 200, 35); 
+		    frame1.add(button2);
 
+		    button2.addActionListener(new ActionListener(){//匿名类实现ActionListener接口
+				public void actionPerformed(ActionEvent e){	
+					String name=JText0.getText()+"-"+Menu.time;
+					String path=JText11.getText();
+					System.out.println(path+name);
+					Recording.DosCommand("start  \"D:\\Program Files (x86)\\DAUM\\PotPlayer\\PotPlayerMini.exe\"  "+path+"/"+name+".mp4");
+				}});
+		    
 	button1.addActionListener(new ActionListener(){//匿名类实现ActionListener接口
 		public void actionPerformed(ActionEvent e)
 		{	
@@ -82,7 +97,7 @@ public class RecordingFM extends JFrame
 	        		try {
 					String throttle = null;
 					String time = null;
-					String name=JText0.getText();
+					String name=JText0.getText()+"-"+Menu.time;
 					String path=JText11.getText();
 					if(box.getSelectedItem().equals("4Mbps"))
 					{
@@ -111,12 +126,14 @@ public class RecordingFM extends JFrame
 						time="--time-limit 120" ;
 					}
 					Recording.Monkey("adb shell screenrecord  "+throttle+"  "+time+"  /sdcard/"+name+".mp4");
+					lable19.setForeground(Color.red);
 					lable19.setText("录制完成~开始拉取视频文件到本地~~~");	
 					Recording.Monkey("adb pull /sdcard/"+name+".mp4 "+path);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}finally{
+						  lable19.setForeground(Color.red);//设置字体颜色
 						  lable19.setText("录制完成~");
 					}
 	            }

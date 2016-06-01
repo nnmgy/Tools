@@ -18,7 +18,7 @@ public class NSlog {
 	}
 
 	public static String time() {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");// 定义格式，不显示毫秒
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");// 定义格式，不显示毫秒
 		String time = df.format(new Date());
 		return time;
 	}

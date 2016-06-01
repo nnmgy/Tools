@@ -1,4 +1,4 @@
-package alimusic.tools.test;
+package alimusic.tools.IosMontian;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class IosMontian
             if (isAuthenticated == false)
             throw new IOException("Authentication failed.");
             Session sess = conn.openSession();
-            sess.execCommand("top |  grep xiami");
+            sess.execCommand("top |  grep TTEntertai");
             InputStream stdout = new StreamGobbler(sess.getStdout());
             BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
             String  line = null ;

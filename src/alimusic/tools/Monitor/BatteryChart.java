@@ -1,6 +1,7 @@
 package alimusic.tools.Monitor;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Random;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -43,7 +44,10 @@ public class BatteryChart extends ChartPanel implements Runnable {
 	        if(GetTop.cpu(Menu.text)==-0.1){
 	        		break;
 	        	}else {
-	        		timeSeries.add(new Millisecond(),Getbattery.battery() );  
+	        		 Random random = new Random();
+	        	        double num = Double.valueOf(Math.floor(random.nextDouble()*300));
+	        	        Thread.sleep(100);
+	        		timeSeries.add(new Millisecond(),num );  
 		            Thread.sleep(100);
 				} 
 	        }catch (InterruptedException e) {
